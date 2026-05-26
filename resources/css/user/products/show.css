@@ -1,0 +1,23 @@
+/* CSS đảm bảo thumb active luôn hiển thị viền và độ sáng đúng */
+.thumbSwiper .swiper-slide-thumb-active {
+    border-color: #2563eb !important;
+    opacity: 1 !important;
+}
+
+/* Swiper custom styles */
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 1.2rem !important;
+    font-weight: bold;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.mainSwiper:hover .swiper-button-next,
+.mainSwiper:hover .swiper-button-prev {
+    opacity: 1;
+}
