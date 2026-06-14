@@ -46,6 +46,17 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="/admin/filter-groups" class="flex items-center px-3 py-2.5 rounded-lg {{ request()->is('admin/filter-groups*') ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }} transition">
+                        <i class="fas fa-layer-group w-6 text-center mr-2"></i> Nhóm Filter
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/filter-values" class="flex items-center px-3 py-2.5 rounded-lg {{ request()->is('admin/filter-values*') ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-800 hover:text-white' }} transition">
+                        <i class="fas fa-sliders-h w-6 text-center mr-2"></i> Giá trị Filter
+                    </a>
+                </li>
+
                 <li class="mt-6 mb-2 px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Bán hàng</li>
                 <li>
                     <a href="#" class="flex items-center px-3 py-2.5 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition">

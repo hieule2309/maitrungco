@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class FilterGroup extends Model
 {
-    //
+    protected $fillable = ['name', 'slug'];
+
+    public function values()
+    {
+        return $this->hasMany(FilterValue::class);
+    }
 }

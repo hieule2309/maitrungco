@@ -4,11 +4,9 @@ namespace App\Repositories\Contracts;
 
 interface ProductRepositoryInterface
 {
-    /**
-     * Get product by id
-     *
-     * @param int $id
-     * @return array
-     */
-    public function getProductById(int $id);
+    public function getAll(array $filters = []);
+    public function getById(int $id);
+    public function create(array $data): \App\Models\Product;
+    public function update(int $id, array $data): \App\Models\Product;
+    public function delete(int $id): void;
 }
