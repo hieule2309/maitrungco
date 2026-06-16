@@ -81,117 +81,14 @@
             <div class="container mx-auto px-4 flex">
 
                 <!-- Category Dropdown (Dọc) -->
-                <div class="group relative w-64 bg-blue-600 text-white">
-                    <div class="px-4 py-3 cursor-pointer flex justify-between items-center font-semibold">
-                        <span><i class="fas fa-bars mr-2"></i> DANH MỤC SẢN PHẨM</span>
-                    </div>
-
-                    <!-- Level 1 -->
-                    <ul class="absolute hidden group-hover:block w-full bg-white text-gray-800 shadow-xl border border-gray-200 z-50 rounded-b-lg">
-
-                        <!-- Level 1 Item 1 with Submenu -->
-                        <li class="group/sub relative border-b border-gray-100 hover:bg-gray-50">
-                            <a href="/products" class="flex justify-between items-center px-4 py-3">
-                                <span class="flex items-center text-sm font-medium"><i class="fas fa-laptop w-6 text-gray-400"></i> Máy Tính & Laptop</span>
-                                <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-                            </a>
-
-                            <!-- Level 2 -->
-                            <ul class="absolute hidden group-hover/sub:block top-0 left-full w-56 bg-white shadow-xl border border-gray-200 rounded-r-lg h-full min-h-[300px]">
-                                <!-- Level 2 Item 1 with Submenu -->
-                                <li class="group/sub2 relative hover:bg-gray-50">
-                                    <a href="/products" class="flex justify-between items-center px-4 py-3 border-b border-gray-100 text-sm font-medium">
-                                        Laptop
-                                        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-                                    </a>
-
-                                    <!-- Level 3 -->
-                                    <ul class="absolute hidden group-hover/sub2:block top-0 left-full w-56 bg-white shadow-xl border border-gray-200 rounded-r-lg">
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition border-b border-gray-50">Laptop Gaming</a></li>
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition border-b border-gray-50">Laptop Văn Phòng</a></li>
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition border-b border-gray-50">MacBook (Apple)</a></li>
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition">Laptop Đồ Họa</a></li>
-                                    </ul>
-                                </li>
-                                <!-- Level 2 Item 2 -->
-                                <li class="group/sub2 relative hover:bg-gray-50">
-                                    <a href="/products" class="flex justify-between items-center px-4 py-3 border-b border-gray-100 text-sm font-medium">
-                                        PC Lắp Ráp
-                                        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-                                    </a>
-
-                                    <!-- Level 3 -->
-                                    <ul class="absolute hidden group-hover/sub2:block top-0 left-full w-56 bg-white shadow-xl border border-gray-200 rounded-r-lg">
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition border-b border-gray-50">PC Gaming</a></li>
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition">PC Văn Phòng</a></li>
-                                    </ul>
-                                </li>
-                                <li class="hover:bg-gray-50">
-                                    <a href="/products" class="block px-4 py-3 border-b border-gray-100 text-sm font-medium">Màn Hình Máy Tính</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <!-- Level 1 Item 2 with Submenu -->
-                        <li class="group/sub relative border-b border-gray-100 hover:bg-gray-50">
-                            <a href="/products" class="flex justify-between items-center px-4 py-3">
-                                <span class="flex items-center text-sm font-medium"><i class="fas fa-keyboard w-6 text-gray-400"></i> Phụ Kiện Máy Tính</span>
-                                <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-                            </a>
-
-                            <!-- Level 2 -->
-                            <ul class="absolute hidden group-hover/sub:block top-0 left-full w-56 bg-white shadow-xl border border-gray-200 rounded-r-lg h-full min-h-[300px]">
-                                <li class="group/sub2 relative hover:bg-gray-50">
-                                    <a href="/products" class="flex justify-between items-center px-4 py-3 border-b border-gray-100 text-sm font-medium">
-                                        Bàn phím
-                                        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-                                    </a>
-                                    <!-- Level 3 -->
-                                    <ul class="absolute hidden group-hover/sub2:block top-0 left-full w-56 bg-white shadow-xl border border-gray-200 rounded-r-lg">
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition border-b border-gray-50">Bàn phím cơ</a></li>
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition border-b border-gray-50">Bàn phím giả cơ</a></li>
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition">Keycap & Switch</a></li>
-                                    </ul>
-                                </li>
-                                <li class="group/sub2 relative hover:bg-gray-50">
-                                    <a href="/products" class="flex justify-between items-center px-4 py-3 border-b border-gray-100 text-sm font-medium">
-                                        Chuột máy tính
-                                        <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-                                    </a>
-                                    <!-- Level 3 -->
-                                    <ul class="absolute hidden group-hover/sub2:block top-0 left-full w-56 bg-white shadow-xl border border-gray-200 rounded-r-lg">
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition border-b border-gray-50">Chuột Gaming</a></li>
-                                        <li><a href="/products" class="block px-4 py-2.5 text-sm hover:text-blue-600 hover:bg-blue-50 transition">Chuột Bluetooth / Không dây</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/products" class="block px-4 py-3 border-b border-gray-100 hover:bg-gray-50 text-sm font-medium">Tai nghe Gaming</a></li>
-                                <li><a href="/products" class="block px-4 py-3 border-b border-gray-100 hover:bg-gray-50 text-sm font-medium">Balo & Túi chống sốc</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- Level 1 Item 3 -->
-                        <li class="group/sub relative border-b border-gray-100 hover:bg-gray-50">
-                            <a href="/products" class="flex justify-between items-center px-4 py-3">
-                                <span class="flex items-center text-sm font-medium"><i class="fas fa-microchip w-6 text-gray-400"></i> Linh Kiện PC</span>
-                                <i class="fas fa-chevron-right text-xs text-gray-400"></i>
-                            </a>
-                            <!-- Level 2 -->
-                            <ul class="absolute hidden group-hover/sub:block top-0 left-full w-56 bg-white shadow-xl border border-gray-200 rounded-r-lg h-full min-h-[300px]">
-                                <li><a href="/products" class="block px-4 py-3 border-b border-gray-100 hover:bg-gray-50 text-sm font-medium">VGA - Card màn hình</a></li>
-                                <li><a href="/products" class="block px-4 py-3 border-b border-gray-100 hover:bg-gray-50 text-sm font-medium">CPU - Bộ vi xử lý</a></li>
-                                <li><a href="/products" class="block px-4 py-3 border-b border-gray-100 hover:bg-gray-50 text-sm font-medium">Mainboard - Bo mạch chủ</a></li>
-                                <li><a href="/products" class="block px-4 py-3 border-b border-gray-100 hover:bg-gray-50 text-sm font-medium">RAM / Ổ cứng</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                @include('user.layouts.category')
 
                 <!-- Horizontal Menu -->
                 <ul class="flex space-x-8 px-8 items-center font-medium text-gray-700 text-sm">
                     <li><a href="/" class="hover:text-blue-600 transition">Trang chủ</a></li>
                     <li><a href="/products" class="hover:text-blue-600 transition text-blue-600">Sản phẩm</a></li>
                     <!-- <li><a href="#" class="hover:text-blue-600 transition text-red-600 font-bold"><i class="fas fa-bolt mr-1"></i>Flash Sale</a></li> -->
-                    <li><a href="#" class="hover:text-blue-600 transition">Build PC</a></li>
+                    {{-- <li><a href="#" class="hover:text-blue-600 transition">Build PC</a></li> --}}
                     <!-- <li><a href="#" class="hover:text-blue-600 transition">Tin tức công nghệ</a></li> -->
                 </ul>
             </div>
@@ -236,9 +133,10 @@
             <div>
                 <h4 class="text-white font-semibold mb-4 uppercase text-sm">Liên hệ</h4>
                 <ul class="space-y-3 text-sm text-gray-400">
-                    <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500 w-4 text-center"></i> 123 Đường Công Nghệ, Quận 1, TP. HCM</li>
-                    <li class="flex items-center"><i class="fas fa-phone mt-1 mr-3 text-blue-500 w-4 text-center"></i> {{ SHOP_PHONE }} (8:00 - 21:00)</li>
-                    <li class="flex items-center"><i class="fas fa-envelope mt-1 mr-3 text-blue-500 w-4 text-center"></i> cskh@techstore.vn</li>
+                    <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500 w-4 text-center"></i> {{ SHOP_ADDRESS }}</li>
+                    <li class="flex items-center"><i class="fas fa-phone mt-1 mr-3 text-blue-500 w-4 text-center"></i> {{ SHOP_PHONE }}</li>
+                    <li class="flex items-center"><i class="fas fa-phone mt-1 mr-3 text-blue-500 w-4 text-center"></i> {{ SHOP_HOTLINE }}</li>
+                    <li class="flex items-center"><i class="fas fa-envelope mt-1 mr-3 text-blue-500 w-4 text-center"></i> {{ SHOP_MAIL }}</li>
                 </ul>
             </div>
         </div>

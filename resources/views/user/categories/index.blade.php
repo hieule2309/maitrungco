@@ -12,7 +12,7 @@
         <li aria-current="page">
             <div class="flex items-center">
                 <i class="fas fa-chevron-right text-xs mx-2"></i>
-                <span class="text-gray-800 font-medium">Sản phẩm</span>
+                <span class="text-gray-800 font-medium">{{ $category->name }}</span>
             </div>
         </li>
     </ol>
@@ -21,7 +21,7 @@
 <div class="flex flex-col md:flex-row gap-8">
 
     <!-- Sidebar Filters -->
-    {{-- @include('user.layouts.filter') --}}
+    @include('user.layouts.filter')
 
     <!-- Product Grid -->
     <div class="flex-1">
@@ -31,7 +31,7 @@
 
         <!-- Sort and Controls -->
         <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
-            <h1 class="text-xl font-bold text-gray-800">Tất cả sản phẩm</h1>
+            <h1 class="text-xl font-bold text-gray-800">{{ $category->name }}</h1>
             <div class="flex items-center space-x-4">
                 <span class="text-sm text-gray-500">Sắp xếp theo:</span>
                 <select class="border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 block p-2.5">
@@ -179,8 +179,8 @@
         </div>
 
         {{ $products->links('user.layouts.paginator') }}
-        <!-- Pagination -->
-        {{-- <div class="mt-10 flex justify-center">
+        {{-- <!-- Pagination -->
+        <div class="mt-10 flex justify-center">
             <nav class="flex items-center space-x-2">
                 <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-50 transition"><i class="fas fa-chevron-left text-sm"></i></a>
                 <a href="#" class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-600 text-white font-medium shadow">1</a>
