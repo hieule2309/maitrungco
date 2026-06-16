@@ -26,10 +26,13 @@ interface ProductRepositoryInterface
     /**
      * Get list category product
      *
-     * @param array $categories
+     * @param string $sort
+     * @param array $filters
+     * @param int|null $minPrice
+     * @param int|null $maxPrice
      * @return LengthAwarePaginator
      */
-    public function getListCategoryProduct(array $categories);
+    public function getListCategoryProduct(array $categories, string $sort = 'newest', array $filters = [], $minPrice = null, $maxPrice = null);
 
     /**
      * Get product by slug

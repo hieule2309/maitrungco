@@ -13,4 +13,12 @@ class FilterValue extends Model
     {
         return $this->belongsTo(FilterGroup::class, 'filter_group_id');
     }
+
+    /**
+     * Products
+     */
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'filter_value_product');
+    }
 }

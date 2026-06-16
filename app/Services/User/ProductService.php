@@ -24,13 +24,16 @@ class ProductService
 
     /**
      * Get list category product
-     *
      * @param array $categories
+     * @param string $sort
+     * @param array $filters
+     * @param int|null $minPrice
+     * @param int|null $maxPrice
      * @return LengthAwarePaginator
      */
-    public function getListCategoryProduct(array $categories)
+    public function getListCategoryProduct(array $categories, string $sort = 'newest', array $filters = [], $minPrice = null, $maxPrice = null)
     {
-        return $this->productRepository->getListCategoryProduct($categories);
+        return $this->productRepository->getListCategoryProduct($categories, $sort, $filters, $minPrice, $maxPrice);
     }
 
     public function getProductBySlug(string $slug)

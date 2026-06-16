@@ -34,11 +34,11 @@
             <h1 class="text-xl font-bold text-gray-800">{{ $category->name }}</h1>
             <div class="flex items-center space-x-4">
                 <span class="text-sm text-gray-500">Sắp xếp theo:</span>
-                <select class="border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 block p-2.5">
-                    <option>Bán chạy nhất</option>
-                    <option>Giá thấp đến cao</option>
-                    <option>Giá cao đến thấp</option>
-                    <option>Mới nhất</option>
+                <select onchange="window.location.href = this.value.replace(/%2C/g, ',');" class="border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    <option value="{{ request()->fullUrlWithQuery(['sort' => 'best_selling']) }}" {{ (isset($sort) && $sort == 'best_selling') ? 'selected' : '' }}>Bán chạy nhất</option>
+                    <option value="{{ request()->fullUrlWithQuery(['sort' => 'price_asc']) }}" {{ (isset($sort) && $sort == 'price_asc') ? 'selected' : '' }}>Giá thấp đến cao</option>
+                    <option value="{{ request()->fullUrlWithQuery(['sort' => 'price_desc']) }}" {{ (isset($sort) && $sort == 'price_desc') ? 'selected' : '' }}>Giá cao đến thấp</option>
+                    <option value="{{ request()->fullUrlWithQuery(['sort' => 'newest']) }}" {{ (!isset($sort) || $sort == 'newest') ? 'selected' : '' }}>Mới nhất</option>
                 </select>
             </div>
         </div>
@@ -138,7 +138,15 @@
                         <button class="w-10 h-10 rounded-full bg-white text-gray-700 shadow hover:text-blue-600 hover:bg-gray-50 flex items-center justify-center transition" title="Yêu thích">
                             <i class="far fa-heart"></i>
                         </button>
-                        <button class="w-10 h-10 rounded-full bg-white text-gray-700 shadow hover:text-blue-600 hover:bg-gray-50 flex items-center justify-center transition" title="Xem nhanh">
+                        <button onclick="openQuickView({
+                                name: '{{ addslashes($product->name) }}',
+                                price: '{{ $product->formatted_price }}',
+                                old_price: '{{ $product->old_price ? number_format($product->old_price, 0, ",", ".") . " đ" : "" }}',
+                                discount: '{{ $product->old_price && $product->old_price > $product->price ? "-" . round((($product->old_price - $product->price) / $product->old_price) * 100) . "%" : "" }}',
+                                image: '{{ $product->thumbnail_url }}',
+                                url: '/p/{{ $product->slug }}'
+                            })" 
+                            class="w-10 h-10 rounded-full bg-white text-gray-700 shadow hover:text-blue-600 hover:bg-gray-50 flex items-center justify-center transition" title="Xem nhanh">
                             <i class="far fa-eye"></i>
                         </button>
                     </div>
@@ -178,7 +186,7 @@
             @endforeach
         </div>
 
-        {{ $products->links('user.layouts.paginator') }}
+        {{ $products->withQueryString()->links('user.layouts.paginator') }}
         {{-- <!-- Pagination -->
         <div class="mt-10 flex justify-center">
             <nav class="flex items-center space-x-2">
@@ -194,3 +202,17 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Decode %2C back to comma in all pagination links
+        const paginationLinks = document.querySelectorAll('.pagination a, nav[aria-label="Pagination"] a, nav[role="navigation"] a');
+        paginationLinks.forEach(link => {
+            if (link.href) {
+                link.href = link.href.replace(/%2C/g, ',');
+            }
+        });
+    });
+</script>
+@endpush

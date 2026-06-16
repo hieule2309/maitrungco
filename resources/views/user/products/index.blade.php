@@ -30,7 +30,7 @@
         {{-- @include('user.layouts.banner') --}}
 
         <!-- Sort and Controls -->
-        <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
+        {{-- <div class="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-6">
             <h1 class="text-xl font-bold text-gray-800">Tất cả sản phẩm</h1>
             <div class="flex items-center space-x-4">
                 <span class="text-sm text-gray-500">Sắp xếp theo:</span>
@@ -41,7 +41,7 @@
                     <option>Mới nhất</option>
                 </select>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Products -->
         @php
@@ -138,7 +138,15 @@
                         <button class="w-10 h-10 rounded-full bg-white text-gray-700 shadow hover:text-blue-600 hover:bg-gray-50 flex items-center justify-center transition" title="Yêu thích">
                             <i class="far fa-heart"></i>
                         </button>
-                        <button class="w-10 h-10 rounded-full bg-white text-gray-700 shadow hover:text-blue-600 hover:bg-gray-50 flex items-center justify-center transition" title="Xem nhanh">
+                        <button onclick="openQuickView({
+                                name: '{{ addslashes($product->name) }}',
+                                price: '{{ $product->formatted_price }}',
+                                old_price: '{{ $product->old_price ? number_format($product->old_price, 0, ",", ".") . " đ" : "" }}',
+                                discount: '{{ $product->old_price && $product->old_price > $product->price ? "-" . round((($product->old_price - $product->price) / $product->old_price) * 100) . "%" : "" }}',
+                                image: '{{ $product->thumbnail_url }}',
+                                url: '/p/{{ $product->slug }}'
+                            })" 
+                            class="w-10 h-10 rounded-full bg-white text-gray-700 shadow hover:text-blue-600 hover:bg-gray-50 flex items-center justify-center transition" title="Xem nhanh">
                             <i class="far fa-eye"></i>
                         </button>
                     </div>

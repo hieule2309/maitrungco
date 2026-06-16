@@ -144,6 +144,10 @@
             <p>&copy; 2026 {{ SHOP_NAME }}. Tất cả quyền được bảo lưu.</p>
         </div>
     </footer>
+
+    <!-- Quick View Modal Component -->
+    @include('user.layouts.quick-view-modal')
+
     @stack('scripts')
     @stack('styles')
 </body>
