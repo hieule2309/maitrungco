@@ -2,7 +2,6 @@
 
 namespace App\Services\User;
 use App\Repositories\Contracts\ProductRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
 use  Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductService
@@ -15,11 +14,12 @@ class ProductService
     /**
      * Get list product
      *
+     * @param string|null $keyword
      * @return LengthAwarePaginator
      */
-    public function getListProduct()
+    public function getListProduct(?string $keyword = null)
     {
-        return $this->productRepository->getListProduct();
+        return $this->productRepository->getListProduct($keyword);
     }
 
     /**
@@ -39,5 +39,17 @@ class ProductService
     public function getProductBySlug(string $slug)
     {
         return $this->productRepository->getProductBySlug($slug);
+    }
+
+    /**
+     * Get favorite products by ids
+     *
+     * @param array $ids
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getFavoriteProducts(array $ids, int $perPage = PRODUCT_PER_PAGE)
+    {
+        return $this->productRepository->getFavoriteProducts($ids, $perPage);
     }
 }

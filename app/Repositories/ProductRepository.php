@@ -3,30 +3,28 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\ProductRepositoryInterface;
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Collection;
 use  Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository implements ProductRepositoryInterface
 {
     /**
-     * Get product by id
-     *
-     * @param int $id
-     * @return array
-     */
-    public function getProductById(int $id)
-    {
-        return [];
-    }
-
-    /**
      * Get list product
      *
+     * @param string|null $keyword
      * @return LengthAwarePaginator
      */
-    public function getListProduct()
+    public function getListProduct(?string $keyword = null)
     {
-        return Product::active()->with('images', 'categories')->orderBy('id', 'desc')->paginate(PRODUCT_PER_PAGE);
+        $query = Product::active()->with('images', 'categories');
+
+        if (!empty($keyword)) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%")
+                  ->orWhere('slug', 'like', "%{$keyword}%");
+            });
+        }
+
+        return $query->orderBy('id', 'desc')->paginate(PRODUCT_PER_PAGE);
     }
 
     /**
@@ -73,10 +71,6 @@ class ProductRepository implements ProductRepositoryInterface
                 $query->orderBy('price', 'desc');
                 break;
             case 'best_selling':
-                // Assuming best selling could be sort by sales if such column exists, or just fallback
-                // We'll sort by id desc for now if best_selling logic isn't fully defined.
-                $query->orderBy('id', 'desc');
-                break;
             case 'newest':
             default:
                 $query->orderBy('id', 'desc');
@@ -95,5 +89,17 @@ class ProductRepository implements ProductRepositoryInterface
     public function getProductBySlug(string $slug)
     {
         return Product::where('slug', $slug)->active()->with('images', 'categories', 'filterValues.filterGroup')->firstOrFail();
+    }
+
+    /**
+     * Get favorite products by ids
+     *
+     * @param array $ids
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getFavoriteProducts(array $ids, int $perPage = 20)
+    {
+        return Product::whereIn('id', $ids)->active()->with('images', 'categories')->orderBy('id', 'desc')->paginate($perPage);
     }
 }

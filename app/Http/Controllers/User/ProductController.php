@@ -9,18 +9,21 @@ use App\Services\User\CategoryService;
 
 class ProductController
 {
-    public function __construct(protected ProductService $productService, protected CategoryService $categoryService)
-    {
-
+    public function __construct(
+        protected ProductService $productService,
+        protected CategoryService $categoryService
+    ) {
     }
     /**
      * Get the user list product
      *
+     * @param Request $request
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productService->getListProduct();
+        $keyword = $request->input('keyword');
+        $products = $this->productService->getListProduct($keyword);
 
         return view('user.products.index', [
             'products' => $products,

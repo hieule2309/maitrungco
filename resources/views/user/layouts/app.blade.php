@@ -22,6 +22,7 @@
             from { opacity: 0; transform: translateY(-5px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen">
@@ -49,12 +50,12 @@
 
             <!-- Search -->
             <div class="flex-1 max-w-2xl mx-8">
-                <div class="relative flex w-full">
-                    <input type="text" placeholder="Tìm kiếm laptop, phụ kiện, linh kiện..." class="w-full border border-gray-300 rounded-l-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
-                    <button class="bg-blue-600 text-white px-6 rounded-r-lg hover:bg-blue-700 transition">
+                <form action="{{ route('user.product.index') }}" method="GET" class="relative flex w-full">
+                    <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Tìm kiếm laptop, phụ kiện, linh kiện..." class="w-full border border-gray-300 rounded-l-lg py-2.5 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                    <button type="submit" class="bg-blue-600 text-white px-6 rounded-r-lg hover:bg-blue-700 transition">
                         <i class="fas fa-search"></i>
                     </button>
-                </div>
+                </form>
             </div>
 
             <!-- Icons -->
@@ -63,10 +64,12 @@
                     <i class="far fa-user text-xl mb-1"></i>
                     <span class="text-xs font-medium">Tài khoản</span>
                 </a> -->
-                <a href="/favorites" class="text-gray-600 hover:text-blue-600 transition text-center flex flex-col items-center relative">
+                <a href="/favorites" class="text-gray-600 hover:text-blue-600 transition text-center flex flex-col items-center relative"
+                   x-data="{ count: {{ count(json_decode(request()->cookie('favorites', '[]'), true)) }} }"
+                   @favorites-updated.window="count = $event.detail.count">
                     <i class="far fa-heart text-xl mb-1"></i>
                     <span class="text-xs font-medium">Yêu thích</span>
-                    <span class="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">3</span>
+                    <span x-show="count > 0" x-text="count" x-cloak class="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full"></span>
                 </a>
                 <!-- <a href="#" class="text-gray-600 hover:text-blue-600 transition text-center flex flex-col items-center relative">
                     <i class="fas fa-shopping-cart text-xl mb-1"></i>

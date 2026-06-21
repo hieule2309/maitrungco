@@ -3,25 +3,17 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Collection;
 use  Illuminate\Pagination\LengthAwarePaginator;
 
 interface ProductRepositoryInterface
 {
     /**
-     * Get product by id
-     *
-     * @param int $id
-     * @return array
-     */
-    public function getProductById(int $id);
-
-    /**
      * Get list product
      *
+     * @param string|null $keyword
      * @return LengthAwarePaginator
      */
-    public function getListProduct();
+    public function getListProduct(?string $keyword = null);
 
     /**
      * Get list category product
@@ -41,4 +33,13 @@ interface ProductRepositoryInterface
      * @return Product
      */
     public function getProductBySlug(string $slug);
+
+    /**
+     * Get favorite products by ids
+     *
+     * @param array $ids
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
+    public function getFavoriteProducts(array $ids, int $perPage = 20);
 }

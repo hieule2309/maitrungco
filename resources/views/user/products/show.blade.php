@@ -144,8 +144,25 @@
                     {{-- <i class="fas fa-cart-plus mr-2"></i> --}}
                     Mua hàng liên hệ {{ SHOP_PHONE }}
                 </button>
-                <button class="w-12 h-12 flex-shrink-0 border border-gray-300 rounded-lg text-red-500 flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition text-xl tooltip" title="Thêm vào yêu thích">
-                    <i class="far fa-heart"></i>
+                <button x-data="{ isFavorite: {{ in_array($product->id, json_decode(request()->cookie('favorites', '[]'), true)) ? 'true' : 'false' }} }" 
+                        @click.prevent="
+                            fetch('{{ route('user.favorites.toggle') }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({ product_id: {{ $product->id }} })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                isFavorite = data.is_favorite;
+                                window.dispatchEvent(new CustomEvent('favorites-updated', { detail: { count: data.count } }));
+                            })
+                        "
+                        :class="isFavorite ? 'text-red-500 border-red-200 bg-red-50' : 'text-gray-400 border-gray-300 bg-white'"
+                        class="w-12 h-12 flex-shrink-0 border rounded-lg flex items-center justify-center hover:bg-red-50 hover:border-red-200 hover:text-red-500 transition text-xl tooltip" title="Thêm vào yêu thích">
+                    <i :class="isFavorite ? 'fas fa-heart' : 'far fa-heart'"></i>
                 </button>
             </div>
         </div>

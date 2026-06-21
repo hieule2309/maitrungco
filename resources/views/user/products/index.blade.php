@@ -135,8 +135,25 @@
 
                     <!-- Quick action buttons overlay -->
                     <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button class="w-10 h-10 rounded-full bg-white text-gray-700 shadow hover:text-blue-600 hover:bg-gray-50 flex items-center justify-center transition" title="Yêu thích">
-                            <i class="far fa-heart"></i>
+                        <button x-data="{ isFavorite: {{ in_array($product->id, json_decode(request()->cookie('favorites', '[]'), true)) ? 'true' : 'false' }} }" 
+                                @click.prevent="
+                                    fetch('{{ route('user.favorites.toggle') }}', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        },
+                                        body: JSON.stringify({ product_id: {{ $product->id }} })
+                                    })
+                                    .then(res => res.json())
+                                    .then(data => {
+                                        isFavorite = data.is_favorite;
+                                        window.dispatchEvent(new CustomEvent('favorites-updated', { detail: { count: data.count } }));
+                                    })
+                                "
+                                :class="isFavorite ? 'text-red-500' : 'text-gray-700'"
+                                class="w-10 h-10 rounded-full bg-white shadow hover:text-red-500 hover:bg-gray-50 flex items-center justify-center transition" title="Yêu thích">
+                            <i :class="isFavorite ? 'fas fa-heart' : 'far fa-heart'"></i>
                         </button>
                         <button onclick="openQuickView({
                                 name: '{{ addslashes($product->name) }}',

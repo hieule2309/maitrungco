@@ -15,7 +15,6 @@ class CategoryController
         protected CategoryService $categoryService,
         protected ProductService $productService
     ) {
-
     }
 
     /**
@@ -48,7 +47,7 @@ class CategoryController
         $sort = $request->query('sort', 'newest');
         $minPrice = $request->query('min_price');
         $maxPrice = $request->query('max_price');
-        
+
         $products = $this->productService->getListCategoryProduct($listChildCategory, $sort, $filters, $minPrice, $maxPrice);
 
         return view('user.categories.index', compact('category', 'products', 'sort', 'filterGroups', 'filters'));
