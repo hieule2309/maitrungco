@@ -12,4 +12,9 @@ class FilterGroup extends Model
     {
         return $this->hasMany(FilterValue::class);
     }
+
+    public function filterValues()
+    {
+        return $this->hasMany(FilterValue::class, 'filter_group_id');
+    }
 }

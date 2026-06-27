@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Category;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class LayoutUserServiceProvider extends ServiceProvider
 {
@@ -19,10 +20,10 @@ class LayoutUserServiceProvider extends ServiceProvider
     /**
      * Bootstrap services.
      */
-    public function boot(): void
+    public function boot(CategoryRepositoryInterface $categoryRepository): void
     {
-        View::composer('layouts.app', function ($view) {
-            $categories = Category::all();
+        View::composer('user.layouts.category', function ($view) use ($categoryRepository) {
+            $categories = $categoryRepository->getCategoryTree();
             $view->with('categories', $categories);
         });
     }
