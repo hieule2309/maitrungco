@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class FilterValue extends Model
 {
+    protected $fillable = ['filter_group_id', 'value', 'slug'];
+
     /**
      * Filter groups
      */
@@ -21,4 +23,10 @@ class FilterValue extends Model
     {
         return $this->belongsToMany(Product::class, 'filter_value_product');
     }
+
+    public function group()
+    {
+        return $this->belongsTo(FilterGroup::class, 'filter_group_id');
+    }
+
 }

@@ -8,11 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
-    protected $fillable = [
-        'value',
-        'imageable_id',
-        'imageable_type'
-    ];
+    protected $fillable = ['value', 'imageable_type', 'imageable_id', 'sort'];
 
     /**
      * Morphto

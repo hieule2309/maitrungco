@@ -10,6 +10,13 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
+    protected $fillable = ['name', 'slug', 'description', 'price', 'active'];
+
+    protected $casts = [
+        'price'  => 'decimal:2',
+        'active' => 'boolean',
+    ];
+
 
     protected $appends = [
         'thumbnail_url',
@@ -23,7 +30,6 @@ class Product extends Model
     {
         return $this->belongsToMany(Category::class, 'category_product');
     }
-
     /**
      * Images
      */
