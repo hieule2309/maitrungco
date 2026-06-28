@@ -166,24 +166,30 @@
                     @error('categories')
                         <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
                     @enderror
-                    <div class="space-y-1 max-h-64 overflow-y-auto border border-gray-200 rounded-lg p-3">
+                    <div class="relative mb-2">
+                        <input type="text" id="category-search" placeholder="Tìm danh mục..."
+                            class="w-full border border-gray-300 rounded-lg pl-8 pr-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div id="category-list" class="space-y-1 max-h-64 overflow-y-auto border border-gray-200 rounded-lg p-3">
                         @foreach ($categories as $cat)
-                            <label class="flex items-center py-1 cursor-pointer hover:bg-gray-50 rounded px-1">
-                                <input type="checkbox" name="categories[]" value="{{ $cat->id }}"
-                                    {{ in_array($cat->id, old('categories', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
-                                    class="rounded border-gray-300 text-blue-600 mr-2 category-parent"
-                                    data-id="{{ $cat->id }}">
-                                <span class="text-sm font-semibold text-gray-800">{{ $cat->name }}</span>
-                            </label>
-                            @foreach ($cat->children as $child)
-                                <label class="flex items-center py-1 cursor-pointer hover:bg-gray-50 rounded px-1 pl-6">
-                                    <input type="checkbox" name="categories[]" value="{{ $child->id }}"
-                                        {{ in_array($child->id, old('categories', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
-                                        class="rounded border-gray-300 text-blue-600 mr-2 category-child"
-                                        data-parent="{{ $cat->id }}">
-                                    <span class="text-sm text-gray-700">{{ $child->name }}</span>
+                            <div class="category-group" data-parent-name="{{ strtolower($cat->name) }}">
+                                <label class="flex items-center py-1 cursor-pointer hover:bg-gray-50 rounded px-1 category-item" data-name="{{ strtolower($cat->name) }}">
+                                    <input type="checkbox" name="categories[]" value="{{ $cat->id }}"
+                                        {{ in_array($cat->id, old('categories', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                        class="rounded border-gray-300 text-blue-600 mr-2 category-parent"
+                                        data-id="{{ $cat->id }}">
+                                    <span class="text-sm font-semibold text-gray-800">{{ $cat->name }}</span>
                                 </label>
-                            @endforeach
+                                @foreach ($cat->children as $child)
+                                    <label class="flex items-center py-1 cursor-pointer hover:bg-gray-50 rounded px-1 pl-6 category-item" data-name="{{ strtolower($child->name) }}">
+                                        <input type="checkbox" name="categories[]" value="{{ $child->id }}"
+                                            {{ in_array($child->id, old('categories', $product->categories->pluck('id')->toArray())) ? 'checked' : '' }}
+                                            class="rounded border-gray-300 text-blue-600 mr-2 category-child"
+                                            data-parent="{{ $cat->id }}">
+                                        <span class="text-sm text-gray-700">{{ $child->name }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
                         @endforeach
                     </div>
                     <p class="text-xs text-gray-400 mt-2">Chọn danh mục con sẽ tự động chọn danh mục cha.</p>
@@ -231,4 +237,30 @@
 
 @push('scripts')
     <script src="{{ Vite::asset('resources/js/admin/products/edit.js') }}"></script>
+    <script>
+    (function() {
+        const searchInput = document.getElementById('category-search');
+        if (!searchInput) return;
+        searchInput.addEventListener('input', function() {
+            const q = this.value.toLowerCase().trim();
+            document.querySelectorAll('#category-list .category-group').forEach(function(group) {
+                if (!q) {
+                    group.style.display = '';
+                    group.querySelectorAll('.category-item').forEach(function(item) { item.style.display = ''; });
+                    return;
+                }
+                const parentName = group.dataset.parentName || '';
+                const parentMatch = parentName.includes(q);
+                let anyChildMatch = false;
+                group.querySelectorAll('.category-item').forEach(function(item) {
+                    const childMatch = (item.dataset.name || '').includes(q);
+                    const show = parentMatch || childMatch;
+                    item.style.display = show ? '' : 'none';
+                    if (childMatch) anyChildMatch = true;
+                });
+                group.style.display = (parentMatch || anyChildMatch) ? '' : 'none';
+            });
+        });
+    })();
+    </script>
 @endpush

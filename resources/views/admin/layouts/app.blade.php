@@ -103,10 +103,6 @@
 
             <!-- Actions -->
             <div class="flex items-center space-x-4">
-                <button class="text-gray-400 hover:text-blue-600 transition relative">
-                    <i class="far fa-bell text-xl"></i>
-                    <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">5</span>
-                </button>
                 <a href="/" target="_blank" class="flex items-center text-sm font-medium text-gray-600 hover:text-blue-600 transition bg-gray-100 px-3 py-1.5 rounded-lg">
                     <i class="fas fa-external-link-alt mr-2"></i> Xem trang chủ
                 </a>

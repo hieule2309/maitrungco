@@ -71,6 +71,23 @@
                     clearTimeout(timer);
                     timer = setTimeout(() => form.submit(), 500);
                 });
+
+                document.addEventListener('click', function(e) {
+                    const btn = e.target.closest('.cat-expand-btn');
+                    if (!btn) return;
+                    const extra = document.getElementById('cat-extra-' + btn.dataset.productId);
+                    if (!extra) return;
+                    if (extra.classList.contains('hidden')) {
+                        extra.classList.remove('hidden');
+                        extra.style.display = 'flex';
+                        btn.dataset.label = btn.textContent;
+                        btn.textContent = 'Thu gọn';
+                    } else {
+                        extra.classList.add('hidden');
+                        extra.style.display = '';
+                        btn.textContent = btn.dataset.label;
+                    }
+                });
             })();
         </script>
     @endpush
@@ -113,35 +130,44 @@
                                     <div>
                                         <a href="{{ route('admin.products.edit', $product->id) }}"
                                             class="font-bold text-gray-800 hover:text-blue-600 transition line-clamp-1">{{ $product->name }}</a>
-                                        <code class="text-xs text-gray-400 font-mono">{{ $slugDisplay }}</code>
+                                        <div class="text-xs text-gray-400 font-mono mt-0.5">{{ $slugDisplay }}</div>
                                     </div>
                                 </div>
                             </td>
+                            @php
+                                $allCats = $product->categories;
+                                $visibleCats = $allCats->take(3);
+                                $hiddenCount = $allCats->count() - 3;
+                            @endphp
                             <td class="px-4 py-3.5">
-                                @foreach ($product->categories->take(2) as $cat)
-                                    <span
-                                        class="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded mr-1">{{ $cat->name }}</span>
-                                @endforeach
-                                @if ($product->categories->count() > 2)
-                                    <span class="text-xs text-gray-400">+{{ $product->categories->count() - 2 }}</span>
-                                @endif
+                                <div class="flex flex-wrap gap-1 items-center">
+                                    @foreach ($visibleCats as $cat)
+                                        <span class="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded">{{ $cat->name }}</span>
+                                    @endforeach
+                                    @if ($hiddenCount > 0)
+                                        <button type="button"
+                                            class="text-xs text-blue-500 font-medium hover:text-blue-700 transition cat-expand-btn"
+                                            data-product-id="{{ $product->id }}">+{{ $hiddenCount }}</button>
+                                        <div id="cat-extra-{{ $product->id }}" class="hidden flex-wrap gap-1 mt-1 w-full">
+                                            @foreach ($allCats->skip(3) as $cat)
+                                                <span class="text-xs font-medium bg-blue-50 text-blue-600 px-2 py-0.5 rounded">{{ $cat->name }}</span>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-4 py-3.5">
-                                <span
-                                    class="font-semibold text-gray-800">{{ number_format($product->price, 0, ',', '.') }}₫</span>
+                                <span class="font-semibold text-gray-800 whitespace-nowrap">{{ number_format($product->price, 0, ',', '.') }}₫</span>
                             </td>
                             <td class="px-4 py-3.5 text-center">
                                 @if ($product->active)
-                                    <span
-                                        class="bg-green-100 text-green-700 py-1 px-2.5 rounded-full text-xs font-semibold">Hiển
-                                        thị</span>
+                                    <span class="bg-green-100 text-green-700 py-1 px-2.5 rounded-full text-xs font-semibold whitespace-nowrap">Hiển thị</span>
                                 @else
-                                    <span
-                                        class="bg-gray-100 text-gray-500 py-1 px-2.5 rounded-full text-xs font-semibold">Ẩn</span>
+                                    <span class="bg-gray-100 text-gray-500 py-1 px-2.5 rounded-full text-xs font-semibold whitespace-nowrap">Ẩn</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3.5 text-xs text-gray-400">{{ $product->created_at->format('d/m/Y') }}</td>
-                            <td class="px-4 py-3.5 text-xs text-gray-400">{{ $product->updated_at->diffForHumans() }}</td>
+                            <td class="px-4 py-3.5 text-xs text-gray-400 whitespace-nowrap">{{ $product->created_at->format('d/m/Y') }}</td>
+                            <td class="px-4 py-3.5 text-xs text-gray-400 whitespace-nowrap">{{ $product->updated_at->diffForHumans() }}</td>
                             <td class="px-4 py-3.5 text-center">
                                 <div class="flex items-center justify-center gap-1">
                                     <a href="{{ route('admin.products.edit', $product->id) }}"

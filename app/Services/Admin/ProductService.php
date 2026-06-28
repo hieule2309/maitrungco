@@ -102,7 +102,7 @@ class ProductService
 
             // Add new images
             if (!empty($files['images'])) {
-                $nextSort = $product->images()->max('sort') + 1;
+                $nextSort = (int) $product->images()->max('sort') + 1;
                 $this->saveImages($product, $files['images'], $nextSort);
             }
 
@@ -116,6 +116,7 @@ class ProductService
         foreach ($product->images as $img) {
             Storage::disk('public')->delete($img->value);
         }
+        Storage::disk('public')->deleteDirectory('products/' . $id);
         $this->productRepository->delete($id);
     }
 
@@ -145,8 +146,8 @@ class ProductService
     {
         foreach ($uploadedFiles as $i => $file) {
             /** @var UploadedFile $file */
-            $filename = uniqid('product_') . '.webp';
-            $path = 'products/' . $filename;
+            $index = $startSort + $i;
+            $path  = 'products/' . $product->id . '/' . $index . '.webp';
 
             $webp = $this->convertToWebp($file);
             Storage::disk('public')->put($path, $webp);
@@ -155,7 +156,7 @@ class ProductService
                 'value'          => $path,
                 'imageable_type' => Product::class,
                 'imageable_id'   => $product->id,
-                'sort'           => $startSort + $i,
+                'sort'           => $index,
             ]);
         }
     }
